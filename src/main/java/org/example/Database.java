@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.entities.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -16,11 +17,28 @@ public class Database {
                 .setProperty(USER, "sa")
                 .setProperty(PASS, "")
                 .setProperty("hibernate.agroal.maxSize", "20")
+                // adding annotated classes
+                .addAnnotatedClass(Category.class)
+                .addAnnotatedClass(Comment.class)
+                .addAnnotatedClass(Image.class)
+                .addAnnotatedClass(Ingredient.class)
+                .addAnnotatedClass(Rating.class)
+                .addAnnotatedClass(Recipe.class)
+                .addAnnotatedClass(Tag.class)
+                .addAnnotatedClass(User.class)
                 // options to display SQL in console
                 .setProperty(SHOW_SQL, TRUE.toString())
                 .setProperty(FORMAT_SQL, TRUE.toString())
                 .setProperty(HIGHLIGHT_SQL, TRUE.toString())
                 .buildSessionFactory();
+    }
+    public static void seed(){
+        var sessionFactory = getSessionFactory();
+        sessionFactory.inTransaction(session -> {
+            session.persist(new Ingredient("Cheese slices",2,"g",new Recipe()));
+
+            session.persist(new Recipe(/* your constructor params go here */));
+        });
     }
 
 }

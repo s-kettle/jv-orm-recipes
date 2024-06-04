@@ -19,4 +19,11 @@ public class Category {
     @OneToMany(mappedBy = "category")
     Set<Recipe> recipes;
 
+    public  Category(){}
+
+    public Category(String name, Set<Recipe> recipes) {
+
+        this.name = name;
+        this.recipes = recipes;
+    }
 }

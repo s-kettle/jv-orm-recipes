@@ -19,4 +19,12 @@ public class Rating {
     @ManyToOne(fetch = FetchType.LAZY)
     User rater;
 
+    public Rating(){}
+
+    public Rating(User rater,int value, Date dateRated, Recipe recipe) {
+        this.rater = rater;
+        this.value = value;
+        this.dateRated = dateRated;
+        this.recipe = recipe;
+    }
 }

@@ -1,34 +1,35 @@
 package org.example.entities;
 
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
-
-public class User {
-
+@Entity
+public class Users {
+    @Id
+    @GeneratedValue
     private long id;
     private String username;
     private String email;
     private String password;
     private Role role;
-    private Date dateRegistered;
+    private LocalDate dateRegistered;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "users")
     private Set<Comment> comments;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "rater")
     private Set<Rating> ratings;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "creator")
     private Set<Recipe> recipes;
 
-    public User(){}
+    public Users(){}
 
-    public User(String username, String email, String password, Role role, Date dateRegistered, Set<Comment> comments, Set<Rating> ratings, Set<Recipe> recipes) {
-
+    public Users(String username, String email, String password, Role role, LocalDate dateRegistered, Set<Comment> comments, Set<Rating> ratings, Set<Recipe> recipes) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -37,6 +38,10 @@ public class User {
         this.comments = comments;
         this.ratings = ratings;
         this.recipes = recipes;
+    }
+
+    public LocalDate getDateRegistered() {
+        return dateRegistered;
     }
 
     public String getUsername() {
@@ -69,14 +74,6 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public Date getDateRegistered() {
-        return dateRegistered;
-    }
-
-    public void setDateRegistered(Date dateRegistered) {
-        this.dateRegistered = dateRegistered;
     }
 
     public Set<Comment> getComments() {

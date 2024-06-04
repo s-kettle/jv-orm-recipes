@@ -2,7 +2,7 @@ package org.example.entities;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -19,39 +19,33 @@ public class Recipe {
     int cookingTime;
     int servings;
     int difficultyLevel;
-    int rating;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToMany
+    List<Rating> ratings;
+    @ManyToMany
     List<Ingredient> ingredients;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToMany
     List<Category> categories;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    User creator;
-
-    Date dateCreated;
-    Date lastModified;
+    Users creator;
 
 
+    LocalDate dateCreated;
+    LocalDate lastModified;
     public Recipe(){}
 
-
-
-
-    public Recipe( String title, String description, String instructions, int preparationTime, int cookingTime, int servings, int difficultyLevel, int rating, List<Ingredient> ingredients, List<Category> categories, User creator, Date dateCreated, Date lastModified) {
-        this.title = title;
-        this.description = description;
+    public Recipe(LocalDate lastModified, LocalDate dateCreated, Users creator, List<Category> categories, List<Ingredient> ingredients, List<Rating> rating, int difficultyLevel, int servings, int cookingTime, String instructions, int preparationTime, String description, String title) {
+        this.lastModified = lastModified;
+        this.dateCreated = dateCreated;
+        this.creator = creator;
+        this.categories = categories;
+        this.ingredients = ingredients;
+        this.ratings=rating;
+        this.difficultyLevel = difficultyLevel;
+        this.servings = servings;
+        this.cookingTime = cookingTime;
         this.instructions = instructions;
         this.preparationTime = preparationTime;
-        this.cookingTime = cookingTime;
-        this.servings = servings;
-        this.difficultyLevel = difficultyLevel;
-        this.rating = rating;
-        this.ingredients = ingredients;
-        this.categories = categories;
-        this.creator = creator;
-        this.dateCreated = dateCreated;
-        this.lastModified = lastModified;
+        this.description = description;
+        this.title = title;
     }
 }

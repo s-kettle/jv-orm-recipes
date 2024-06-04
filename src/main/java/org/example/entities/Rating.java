@@ -3,28 +3,30 @@ package org.example.entities;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
+@Entity
 public class Rating {
 
     @Id
     @GeneratedValue
     long id;
 
-    int value;
+    int ratingValue;
     Date dateRated;
 
     @ManyToOne(fetch = FetchType.LAZY)
     Recipe recipe;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    User rater;
+    Users rater;
 
     public Rating(){}
 
-    public Rating(User rater,int value, Date dateRated, Recipe recipe) {
-        this.rater = rater;
-        this.value = value;
+    public Rating(Date dateRated, int ratingValue, Recipe recipe, Users rater) {
         this.dateRated = dateRated;
+        this.ratingValue = ratingValue;
         this.recipe = recipe;
+        this.rater = rater;
     }
 }

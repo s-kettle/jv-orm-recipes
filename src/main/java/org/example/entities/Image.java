@@ -16,4 +16,11 @@ public class Image {
     @OneToOne
     Recipe recipe;
 
+    public Image(){}
+
+    public Image(String filename, String fileData, Recipe recipe) {
+        this.filename = filename;
+        this.fileData = fileData;
+        this.recipe = recipe;
+    }
 }

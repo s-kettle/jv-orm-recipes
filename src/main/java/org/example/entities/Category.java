@@ -16,7 +16,9 @@ public class Category {
 
     String name;
 
-    @OneToMany(mappedBy = "category")
-    Set<Recipe> recipes;
+    public Category(){}
 
+    public Category(String name) {
+        this.name = name;
+    }
 }

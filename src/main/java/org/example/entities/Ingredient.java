@@ -13,7 +13,11 @@ public class Ingredient {
     int quantity;
     String unitOfMeasurement;
 
-    @OneToMany(mappedBy = "ingredient")
-    Recipe recipe;
+    public Ingredient(){}
 
+    public Ingredient(String name, int quantity, String unitOfMeasurement) {
+        this.name = name;
+        this.quantity = quantity;
+        this.unitOfMeasurement = unitOfMeasurement;
+    }
 }

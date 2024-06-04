@@ -1,10 +1,8 @@
 package org.example.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,6 +13,9 @@ public class Category {
     long id;
 
     String name;
+
+    @ManyToMany()
+    List<Recipe> recipes;
 
     public Category(){}
 

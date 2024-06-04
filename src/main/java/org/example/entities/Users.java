@@ -1,15 +1,16 @@
 package org.example.entities;
 
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Set;
-
-public class User {
-
+@Entity
+public class Users {
+    @Id
+    @GeneratedValue
     private long id;
     private String username;
     private String email;
@@ -17,18 +18,18 @@ public class User {
     private Role role;
     private LocalDate dateRegistered;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "users")
     private Set<Comment> comments;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "rater")
     private Set<Rating> ratings;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "creator")
     private Set<Recipe> recipes;
 
-    public User(){}
+    public Users(){}
 
-    public User(String username, String email, String password, Role role, LocalDate dateRegistered, Set<Comment> comments, Set<Rating> ratings, Set<Recipe> recipes) {
+    public Users(String username, String email, String password, Role role, LocalDate dateRegistered, Set<Comment> comments, Set<Rating> ratings, Set<Recipe> recipes) {
         this.username = username;
         this.email = email;
         this.password = password;

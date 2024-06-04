@@ -2,6 +2,8 @@ package org.example.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Ingredient {
 
@@ -12,6 +14,8 @@ public class Ingredient {
     String name;
     int quantity;
     String unitOfMeasurement;
+    @ManyToMany
+    List<Recipe> recipes;
 
     public Ingredient(){}
 

@@ -15,17 +15,17 @@ public class Comment {
     Date datePosted;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    User author;
+    Users users;
 
     @ManyToOne(fetch = FetchType.LAZY)
     Recipe recipe;
 
     public Comment(){}
 
-    public Comment(Date datePosted, String text, User author, Recipe recipe) {
+    public Comment(Date datePosted, String text, Users users, Recipe recipe) {
         this.datePosted = datePosted;
         this.text = text;
-        this.author = author;
+        this.users = users;
         this.recipe = recipe;
     }
 }

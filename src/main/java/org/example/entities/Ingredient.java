@@ -9,9 +9,9 @@ public class Ingredient {
 
     @Id
     @GeneratedValue
-    long id;
+    public long id;
 
-    String name;
+    public String name;
     int quantity;
     String unitOfMeasurement;
     @ManyToMany

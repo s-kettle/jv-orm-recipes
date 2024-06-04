@@ -10,9 +10,9 @@ public class Recipe {
 
     @Id
     @GeneratedValue
-    long id;
+    public long id;
 
-    String title;
+    public String title;
     String description;
     String instructions;
     int preparationTime;

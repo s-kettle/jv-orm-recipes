@@ -13,6 +13,8 @@ import static org.hibernate.cfg.JdbcSettings.*;
 
 public class Database {
 
+    static List<Ingredient> ingredients = new ArrayList<>();
+
     public static SessionFactory getSessionFactory(){
         return new Configuration()
                 //Add annotations for class
@@ -40,28 +42,78 @@ public class Database {
     }
 
     public static void seed(){
-//        var sessionFactory = getSessionFactory();
-//        sessionFactory.inTransaction(session -> {
-//            Ingredient ingredient1 = new Ingredient("Cheddar Cheese",2,"slices");
-//            Ingredient ingredient2 = new Ingredient("White Bread",2,"slices");
-//            Ingredient ingredient3 = new Ingredient("Butter",1,"10g");
-//            Ingredient ingredient4 = new Ingredient("Jalapenos",5,"one unit");
-//            session.persist(ingredient1);
-//            session.persist(ingredient2);
-//            session.persist(ingredient3);
-//            session.persist(ingredient4);
-//
-//            List<Ingredient> grilledCheeseList = new ArrayList<>();
-//            grilledCheeseList.add(ingredient1);
-//            grilledCheeseList.add(ingredient2);
-//            grilledCheeseList.add(ingredient3);
-//            grilledCheeseList.add(ingredient4);
-//
-//            Users testUsers = new Users("Sam321","Samk@gmail.com","password",Role.ADMIN, LocalDate.now(),null,null,null);
-//            session.persist(testUsers);
-//            List<Category> categoryList = List.of(new Category("Sandwiches"));
-//            session.persist(new Recipe(LocalDate.now(),LocalDate.now(), testUsers,categoryList,grilledCheeseList,0,1,2,10,"Google it",3,"Quick and delicious Grilled Cheese","Grilled Cheese Sandwich"));
-//        });
+        var sessionFactory = getSessionFactory();
+
+        sessionFactory.inTransaction(session -> {
+
+            Ingredient ingredient1 = new Ingredient("Cheese", 2, "slices" );
+            Ingredient ingredient2 = new Ingredient("Bread", 2, "slices" );
+            Ingredient ingredient3 = new Ingredient("Butter", 5, "grams" );
+            Ingredient ingredient4 = new Ingredient("Jalapenos", 5, "peppers" );
+
+            session.persist(ingredient1);
+            session.persist(ingredient2);
+            session.persist(ingredient3);
+            session.persist(ingredient4);
+
+            session.flush();
+
+            session.refresh(ingredient1);
+            session.refresh(ingredient2);
+            session.refresh(ingredient3);
+            session.refresh(ingredient4);
+
+            ingredients.add(ingredient1);
+            ingredients.add(ingredient2);
+            ingredients.add(ingredient3);
+            ingredients.add(ingredient4);
+
+            var ingredientWithID = ingredient3.id;
+            var ingredientWithIDName = ingredient3.name;
+
+            System.out.println(ingredientWithID + ingredientWithIDName);
+        });
+
+        sessionFactory.inTransaction(session -> {
+            Recipe grilledCheese = new Recipe(
+                    LocalDate.now(),
+                    LocalDate.now(),
+                    null,
+                    null,
+                    ingredients,
+                    null,
+                    1,
+                    1,
+                    10,
+                    "Put cheese on bread, add jalapenos",
+                    5,
+                    "Delicious cheese sandwich",
+                    "Grilled Cheese");
+
+            session.persist(grilledCheese);
+            session.flush();
+            session.refresh(grilledCheese);
+
+        });
+
+        sessionFactory.inTransaction(session -> {
+
+            Users newUser = new Users(
+                    "jimmyrai321",
+                    "jr@northcoders.co.uk",
+                    "SecretPass",
+                    Role.ADMIN,
+                    LocalDate.now(),
+                    null,
+                    null,
+                    null
+            );
+
+            session.persist(newUser);
+            session.flush();
+            session.refresh(newUser);
+
+        });
     }
 
 }

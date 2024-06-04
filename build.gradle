@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.hibernate.orm:hibernate-core:6.4.4.Final'
+    runtimeOnly 'com.h2database:h2:2.1.214'
+    implementation 'org.hibernate.orm:hibernate-agroal:6.4.4.Final'
+    implementation 'io.agroal:agroal-pool:2.1'
+}
+
+test {
+    useJUnitPlatform()
+}
